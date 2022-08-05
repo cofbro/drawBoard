@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.example.drawboard.main.MainViewModel" />
+        
+        <variable
+            name="clickEvent"
+            type="com.example.drawboard.adapter.ClickEvent" />
+
+        <variable
+            name="mDrawView"
+            type="com.example.drawboard.DrawView" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".main.MainActivity">
+
+
+        <com.example.drawboard.DrawView
+            android:id="@+id/drawView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/circleDraw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.example.drawboard.CircleDraw
+            android:id="@+id/circleDraw"
+            showDetails="@{model.isDrawing()}"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fd5622"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#fd5622"
+            android:orientation="horizontal"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:onClick="@{(view) -> clickEvent.savePictureToGallery(view, mDrawView, model)}"
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/image"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:onClick="@{(view) -> clickEvent.moveLast(view, mDrawView)}"
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/back"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:onClick="@{(view) -> clickEvent.shareImage(view, model)}"
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/download"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/draw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{(view) -> clickEvent.clickDrawBtn(view, model)}"
+                app:srcCompat="@drawable/brush"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:onClick="@{(view) -> clickEvent.changePaintColor(view, mDrawView)}"
+                android:tag="5"
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/paint"
+                app:tint="@color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:onClick="@{(view) -> clickEvent.changePaintColor(view, mDrawView)}"
+            toList="@{model.toList}"
+            android:id="@+id/view"
+            android:tag="1"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/bg_chengse"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
+            app:layout_constraintStart_toStartOf="@+id/floatingActionButton" />
+
+        <View
+            android:onClick="@{(view) -> clickEvent.changePaintColor(view, mDrawView)}"
+            toList="@{model.toList}"
+            android:id="@+id/view2"
+            android:tag="2"
+            android:background="@drawable/bg_zise"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintStart_toStartOf="@+id/view" />
+
+        <View
+            android:onClick="@{(view) -> clickEvent.changePaintColor(view, mDrawView)}"
+            toList="@{model.toList}"
+            android:id="@+id/view3"
+            android:tag="3"
+            android:background="@drawable/bg_hongse"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:layout_constraintBottom_toBottomOf="@+id/floatingActionButton"
+            app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
+            app:layout_constraintStart_toStartOf="@+id/floatingActionButton" />
+
+        <View
+            android:onClick="@{(view) -> clickEvent.changePaintColor(view, mDrawView)}"
+            toList="@{model.toList}"
+            android:id="@+id/view4"
+            android:tag="4"
+            android:background="@drawable/bg_lanse"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
+            app:layout_constraintStart_toStartOf="@+id/floatingActionButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="68dp"
+            android:clickable="true"
+            android:onClick="@{(view) -> clickEvent.clickOnFloatingBtn(view, model)}"
+            android:tint="@color/white"
+            app:backgroundTint="#04d9c5"
+            app:layout_constraintBottom_toTopOf="@+id/circleDraw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/palette" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
